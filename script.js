@@ -87,6 +87,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize image loading
     handleImageLoad();
 
+    // Smooth scrolling for navigation links
+    function handleNavClick(e) {
+        const href = e.target.getAttribute('href');
+        if (href && href.startsWith('#')) {
+            e.preventDefault();
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                const headerHeight = header.offsetHeight;
+                const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }
+
+    // Add click handlers to all navigation links
+    document.querySelectorAll('.nav-links a, .btn[href^="#"]').forEach(link => {
+        link.addEventListener('click', handleNavClick);
+    });
+
     // Clear any saved theme to use default black theme
     localStorage.removeItem('theme');
 });
