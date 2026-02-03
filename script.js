@@ -59,9 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 header.classList.remove('navbar-bottom');
             }
         } else {
-            // On mobile/tablet, always keep at top
-            header.classList.remove('navbar-bottom');
-        }
+    // On mobile/tablet, hide header when scrolling down
+    if (scrollY > 100) {
+        header.style.opacity = '0';
+        header.style.pointerEvents = 'none';
+    } else {
+        header.style.opacity = '1';
+        header.style.pointerEvents = 'auto';
+    }
+}
 
         lastScrollY = scrollY;
         ticking = false;
@@ -114,4 +120,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Clear any saved theme to use default black theme
     localStorage.removeItem('theme');
+
 });
